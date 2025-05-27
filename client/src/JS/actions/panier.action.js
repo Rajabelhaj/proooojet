@@ -10,18 +10,23 @@ import {
 } from "../actionType/panier.actionType";
 
 // récupérer panier utilisateur
-export const getPanier = (userId) => async (dispatch) => {
+export const getPanier = () => async (dispatch) => {
   dispatch({ type: LOAD_PANIER });
   try {
-    const res = await axios.get(`/api/panier/${userId}`);
-    dispatch({ type: GET_PANIER, payload: res.data });
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    };
+    const result = await axios.get(`/api/panier`, config);
+    dispatch({ type: GET_PANIER, payload: result.data });
   } catch (error) {
     dispatch({ type: FAIL_PANIER, payload: error.response.data });
   }
 };
 
 // ajouter au panier
-export const ajouterAuPanier = (userId, produitId, quantité) => async (dispatch) => {
+export const ajouterAuPanier = ( produitId, quantité) => async (dispatch) => {
   dispatch({ type: LOAD_PANIER });
   try {
     const config = {
@@ -29,16 +34,19 @@ export const ajouterAuPanier = (userId, produitId, quantité) => async (dispatch
         authorization: localStorage.getItem("token"),
       },
     };
-    await axios.post("/api/panier/ajouter", { userId, produitId, quantité }, config);
-    dispatch({ type: AJOUTER_AU_PANIER });
-    dispatch(getPanier(userId));
+    //console.log(produitId);
+   const result = await axios.post(`/api/panier/ajouter/${produitId}`,{quantité}, config);
+   //console.log(result);
+
+    dispatch({ type: AJOUTER_AU_PANIER, payload: result.data });
+    dispatch(getPanier());
   } catch (error) {
     dispatch({ type: FAIL_PANIER, payload: error.response.data });
   }
 };
 
 // supprimer un produit du panier
-export const supprimerDuPanier = (userId, produitId) => async (dispatch) => {
+export const supprimerDuPanier = (id, produitId) => async (dispatch) => {
   dispatch({ type: LOAD_PANIER });
   try {
     const config = {
@@ -46,21 +54,21 @@ export const supprimerDuPanier = (userId, produitId) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    await axios.delete(`/api/panier/supprimer/${userId}/${produitId}`, config);
-    dispatch({ type: SUPPRIMER_PRODUIT_PANIER });
-    dispatch(getPanier(userId));
+   const result =  await axios.delete(`/api/panier/supprimer/${id}/${produitId}`, config);
+    dispatch({ type: SUPPRIMER_PRODUIT_PANIER, payload: result.data });
+    dispatch(getPanier());
   } catch (error) {
     dispatch({ type: FAIL_PANIER, payload: error.response.data });
   }
 };
 
 // vider le panier
-export const viderPanier = (userId) => async (dispatch) => {
+export const viderPanier = (id) => async (dispatch) => {
   dispatch({ type: LOAD_PANIER });
   try {
-    await axios.delete(`/api/panier/vider/${userId}`);
+    await axios.delete(`/api/panier/vider/${id}`);
     dispatch({ type: VIDER_PANIER });
-    dispatch(getPanier(userId));
+    dispatch(getPanier());
   } catch (error) {
     dispatch({ type: FAIL_PANIER, payload: error.response.data });
   }

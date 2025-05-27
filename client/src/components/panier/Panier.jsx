@@ -1,39 +1,84 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPanier, supprimerDuPanier, viderPanier } from '../../JS/actions/panier.action';
+import {
+  getPanier,
+  supprimerDuPanier,
+  viderPanier,
+} from '../../JS/actions/panier.action';
+import { creerCommande } from '../../JS/actions/commande.action';
+import { Button } from 'react-bootstrap';
 
 const Panier = () => {
   const dispatch = useDispatch();
-  const userId = localStorage.getItem("userId"); // ou via Redux si connecté
-  const { panier, isLoad } = useSelector(state => state.panierReducer);
-
+  
+  const  isLoad  = useSelector((state) => state.panierReducer.isLoad);
+  //console.log(isLoad);
+  const  panier  = useSelector((state) => state.panierReducer.panier);
+  const panierId = useSelector((state) =>  state.panierReducer.panierId);
+ // console.log(panierId);
+  const user = useSelector((state) => state.userReducer.user);
+  const userId = user?._id;
+console.log(panier);
   useEffect(() => {
-    if (userId) {
-      dispatch(getPanier(userId));
+    
+      dispatch(getPanier());
+   }
+  , [dispatch]);
+
+  const handleValiderCommande = () => {
+    if (window.confirm("Voulez-vous valider la commande ?")) {
+      dispatch(creerCommande(userId));
     }
-  }, [dispatch, userId]);
+  };
+
+  const handlevide = () => {
+      if(window.confirm("Etes vous sure de vider le panier")) {
+        dispatch(viderPanier(userId));
+      }
+      
+    };
+
+
+  const handleDelete = () => {
+    
+    };
+
+                    
 
   if (isLoad) return <p>Chargement...</p>;
-
+console.log(panier)
   return (
     <div>
       <h2>Mon Panier</h2>
-      {panier && panier.produits && panier.produits.length > 0 ? (
+      {panier && panier.length > 0 ? (
         <div>
           <ul>
-            {panier.produits.map((item) => (
+            {panier.map((item) => (
               <li key={item._id}>
-                {item.produitId?.title} - {item.quantité}
-                <button onClick={() => dispatch(supprimerDuPanier(userId, item.produitId._id))}>
-                  Supprimer
-                </button>
+                {item.produitId?.title} - Quantité : {item.quantité}
+
+                 <Button variant = "danger" onClick={() => {  if(window.confirm("Etes vous sure de supprimer ce produit?")) {
+        dispatch(supprimerDuPanier(panierId, item.produitId._id));
+      }
+      }}> 
+            supprimer l'article
+            </Button>
+                
               </li>
             ))}
           </ul>
-          <button onClick={() => dispatch(viderPanier(userId))}>Vider le panier</button>
+         
+          <Button variant = "danger" onClick={handlevide}> 
+            vider le panier
+            </Button>
+
+            <Button variant = "danger" onClick={handleValiderCommande}> 
+            valider la commande
+            </Button>
+          
         </div>
       ) : (
-        <p>Votre panier est vide.</p>
+        <p>Votre panier est vide</p>
       )}
     </div>
   );

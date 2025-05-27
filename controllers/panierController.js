@@ -4,8 +4,14 @@ const Panier = require("../models/Panier");
 // Ajouter un produit au panier (ou augmenter quantité si déjà présent)
 exports.ajouterAuPanier = async (req, res) => {
   try {
-    const { userId, produitId, quantité } = req.body;
-      const quantitéFinale = quantité || 1;
+    //const { userId, produitId, quantité } = req.body;
+    const userId = req.user._id;
+    const produitId = req.params.produitId;
+    const {quantité} = req.body;
+    //console.log(userId);
+    //console.log(produitId);
+    //console.log(quantité);
+      //const quantitéFinale = quantité || 1;
     let panier = await Panier.findOne({userId});
   
 
@@ -16,6 +22,7 @@ exports.ajouterAuPanier = async (req, res) => {
     } else {
       // Vérifier si produit déjà dans le panier
       const itemIndex = panier.items.findIndex(item => item.produitId.toString() === produitId);
+     // console.log(itemIndex);
       if (itemIndex > -1) {
         panier.items[itemIndex].quantité += quantité;
       } else {
@@ -34,8 +41,10 @@ exports.ajouterAuPanier = async (req, res) => {
 // Voir le panier d'un utilisateur
 exports.getPanier = async (req, res) => {
   try {
-    const { userId} = req.params;
+    const  userId = req.user._id;
+    //console.log(userId);
     const panier = await Panier.findOne({userId}).populate("items.produitId", null, "product");
+
     if (!panier) return res.status(404).json({ message: "Panier non trouvé" });
     res.status(200).json(panier);
   } catch (err) {
@@ -48,7 +57,7 @@ exports.getPanier = async (req, res) => {
 // Vider le panier
 exports.viderPanier = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const  userId  = req.user._id;
     const panier = await Panier.findOne({ userId });
     if (!panier) return res.status(404).json({ message: "Panier non trouvé" });
     panier.items = [];
@@ -62,7 +71,8 @@ exports.viderPanier = async (req, res) => {
 // Supprimer un produit spécifique du panier
 exports.supprimerProduitDuPanier = async (req, res) => {
   try {
-    const { userId, produitId } = req.params;
+    const userId= req.user._id;
+    const produitId = req.params;
 
     const panier = await Panier.findOne({ userId });
     if (!panier) return res.status(404).json({ message: "Panier non trouvé" });

@@ -1,50 +1,46 @@
-
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCommandes } from "../../JS/actions/commande.action";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCommandes } from '../../JS/actions/commande.action';
 
 const Commandes = () => {
   const dispatch = useDispatch();
 
-  // Remplacez cela par la vraie récupération de l'ID utilisateur (ex: depuis le token ou Redux)
-  const userId = localStorage.getItem("userId");
+  // Accès aux données Redux
+  const { commandes, isLoad } = useSelector((state) => state.commandeReducer);
+  const user = useSelector((state) => state.userReducer.user); 
+  const userId = user?._id;
 
-  const { commandes, isLoadC, errors } = useSelector((state) => state.commandeReducer);
-
+  // Chargement des commandes à l'affichage
   useEffect(() => {
     if (userId) {
       dispatch(getCommandes(userId));
     }
   }, [dispatch, userId]);
 
-  return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Mes Commandes</h2>
+  if (isLoad) return <p>Chargement des commandes...</p>;
 
-      {isLoadC ? (
-        <p>Chargement...</p>
-      ) : errors.length ? (
-        <p style={{ color: "red" }}>{errors[0]?.msg || "Erreur lors du chargement des commandes"}</p>
-      ) : commandes.length === 0 ? (
-        <p>Aucune commande trouvée.</p>
-      ) : (
-        <ul className="space-y-4">
+  return (
+    <div>
+      <h2>Mes Commandes</h2>
+      {commandes && commandes.length > 0 ? (
+        <ul>
           {commandes.map((cmd) => (
-            <li key={cmd._id} className="border p-4 rounded-md shadow-sm">
-              <p><strong>Date:</strong> {new Date(cmd.createdAt).toLocaleString()}</p>
-              <p><strong>Produits:</strong></p>
-              <ul className="list-disc list-inside">
-                {cmd.produits.map((item, index) => (
-                  <li key={index}>
-                    {item.produit?.title} - Quantité: {item.quantité}
+            <li key={cmd._id}>
+              <h4>Commande du {new Date(cmd.createdAt).toLocaleDateString()}</h4>
+              <p>Status : <strong>{cmd.statut}</strong></p>
+              <ul>
+                {cmd.produits.map((item) => (
+                  <li key={item._id}>
+                    {item.produitId?.title} - Quantité : {item.quantité}
                   </li>
                 ))}
               </ul>
-              <p><strong>Total:</strong> {cmd.total} €</p>
-              <p><strong>Statut:</strong> {cmd.statut}</p>
+              <hr />
             </li>
           ))}
         </ul>
+      ) : (
+        <p>Vous n'avez pas encore de commandes.</p>
       )}
     </div>
   );

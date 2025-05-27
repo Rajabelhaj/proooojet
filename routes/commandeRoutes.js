@@ -10,10 +10,10 @@ const router = express.Router();
 router.post('/creer', isAuth, creerCommande);
 
 //route pour voir la commande
-router.get('/:userId', isAuth, getCommandes);
+router.get('/', isAuth, getCommandes);
 
 //route pour valideer la commande
-router.post('/valider/:userId', isAuth,  commanderDepuisPanier);
+router.post('/valider/:id', isAuth,  commanderDepuisPanier);
 
 module.exports = router;
 

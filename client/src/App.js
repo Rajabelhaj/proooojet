@@ -17,7 +17,9 @@ import DetailProduct from './pages/DetailProd/DetailProduct';
 import PrivateRoute from './routes/PrivateRoute';
 
 import Panier from './components/panier/Panier';
+
 import Commandes from './components/commandes/Commandes';
+
 
 
 
@@ -64,7 +66,7 @@ const user = useSelector(state => state.authReducer.user);
          <Route path='/profile' element={<Profile/>}/>
          {/*  Routes panier et commandes  */}
             <Route path="/panier" element={<Panier userId={user._id} />} />
-            <Route path="/commandes" element={<Commandes userId={user._id} />} /> 
+            <Route path="/commande" element={<Commandes userId={user._id} />} /> 
          </>
         ) : (
          <>

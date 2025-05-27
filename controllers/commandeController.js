@@ -3,10 +3,12 @@ const Commande = require("../models/Commande");
 const Panier = require("../models/Panier");
 const Product = require("../models/Products");
 
-// Créer une commande directement (sans panier)
+// Créer une commande 
 exports.creerCommande = async (req, res) => {
   try {
-    const { userId, items, total } = req.body;
+    const  userId = req.user._id;
+    const {items, total} = req.body;
+  
 
     const nouvelleCommande = await Commande.create({
       userId,
@@ -25,7 +27,7 @@ exports.creerCommande = async (req, res) => {
 // Récupérer toutes les commandes d’un utilisateur
 exports.getCommandes = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const  userId  = req.user._id;
     const commandes = await Commande.find({ userId });
     res.status(200).json(commandes);
   } catch (err) {
@@ -34,10 +36,10 @@ exports.getCommandes = async (req, res) => {
   }
 };
 
-// Créer une commande à partir du panier
+// Créer une commande à partir du panier (validation du commande)
 exports.commanderDepuisPanier = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
 
     // 1. Récupérer le panier de l'utilisateur
     const panier = await Panier.findOne({ userId });
@@ -46,7 +48,7 @@ exports.commanderDepuisPanier = async (req, res) => {
       return res.status(400).json({ message: "Panier vide" });
     }
 
-    //console.log("Panier complet:", panier);
+  
 
     // 2. Calculer le total en récupérant le prix de chaque produit
     let total = 0;
@@ -56,8 +58,8 @@ exports.commanderDepuisPanier = async (req, res) => {
         return res.status(400).json({ message: `Produit introuvable: ${item.produitId}` });
       }
       //console.log("Produit:", produit);
-      //console.log("Prix:", produit.price, "Quantité:", item.quantité);
-      total += produit.price * item.quantité;  // attention ici price, pas prix !
+    
+      total += produit.price * item.quantité;  
     }
 
     // 3. Créer la commande avec les items et total calculé

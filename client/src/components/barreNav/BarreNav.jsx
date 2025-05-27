@@ -18,6 +18,7 @@ const BarreNav = () => {
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            
             {user.isAdmin && <Nav.Link href="/admin">Dashboard</Nav.Link>}
             {isAuth ? (
               <>
@@ -28,6 +29,10 @@ const BarreNav = () => {
               <>
             (<Nav.Link href="/register">Register</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>)</>)}
+            <Nav.Link href="/panier">
+            <img src="https://images.emojiterra.com/twitter/v14.0/256px/1f6d2.png" alt="logo" width={40} height={40}/>
+            
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

@@ -9,7 +9,7 @@ import {
 } from "../actionType/commande.actionType";
 
 // Obtenir toutes les commandes pour un utilisateur
-export const getCommandes = (userId) => async (dispatch) => {
+export const getCommandes = () => async (dispatch) => {
   dispatch({ type: LOAD_COMMANDE });
   try {
     const config = {
@@ -17,7 +17,7 @@ export const getCommandes = (userId) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.get(`/api/commande/${userId}`, config);
+    const res = await axios.get(`/api/commande`, config);
     dispatch({ type: GET_COMMANDES, payload: res.data });
   } catch (error) {
     dispatch({
@@ -28,7 +28,7 @@ export const getCommandes = (userId) => async (dispatch) => {
 };
 
 // Créer une commande à partir d’un panier
-export const creerCommande = (userId) => async (dispatch) => {
+export const creerCommande = (newCommande) => async (dispatch) => {
   dispatch({ type: LOAD_COMMANDE });
   try {
     const config = {
@@ -36,9 +36,9 @@ export const creerCommande = (userId) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.post(`/api/commande/creer/${userId}`, {}, config);
+    const res = await axios.post(`/api/commande/creer`,newCommande, config);
     dispatch({ type: CREER_COMMANDE, payload: res.data });
-    dispatch(getCommandes(userId));
+    dispatch(getCommandes());
   } catch (error) {
     dispatch({
       type: FAIL_COMMANDE,
@@ -48,7 +48,7 @@ export const creerCommande = (userId) => async (dispatch) => {
 };
 
 // Valider une commande spécifique
-export const validerCommande = (commandeId, userId) => async (dispatch) => {
+export const validerCommande = (id) => async (dispatch) => {
   dispatch({ type: LOAD_COMMANDE });
   try {
     const config = {
@@ -56,13 +56,9 @@ export const validerCommande = (commandeId, userId) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.put(
-      `/api/commande/valider/${commandeId}`,
-      {},
-      config
-    );
+    const res = await axios.post( `/api/commande/valider/${id}`, config );
     dispatch({ type: VALIDER_COMMANDE, payload: res.data });
-    dispatch(getCommandes(userId));
+    dispatch(getCommandes());
   } catch (error) {
     dispatch({
       type: FAIL_COMMANDE,

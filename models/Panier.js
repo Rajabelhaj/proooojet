@@ -11,7 +11,7 @@ const panierSchema = new mongoose.Schema({
     {
       produitId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "product",  // Référence au modèle product existant
+        ref: "Product",  // Référence au modèle product existant
         required: true,
       },
       quantité: {

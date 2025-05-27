@@ -7,19 +7,19 @@ const router = express.Router();
 
 
 // route pour ajouter un produit au panier(il faut q'il soit authentifié)
-router.post('/ajouter', isAuth, ajouterAuPanier);
+router.post('/ajouter/:produitId', isAuth, ajouterAuPanier);
 
 
 //route pour voir les produits dans le panier
 
-router.get('/:userId', getPanier);
+router.get('/', isAuth,  getPanier);
 
 // route pour vider le panier
-router.delete("/vider/:userId", viderPanier);
+router.delete("/vider/:id",isAuth,  viderPanier);
 
 
 //  route pour Supprimer un produit du panier (le mien)
-router.delete("/supprimer/:userId/:produitId", isAuth, supprimerProduitDuPanier);
+router.delete("/supprimer/:id/:produitId", isAuth, supprimerProduitDuPanier);
 
 
 
