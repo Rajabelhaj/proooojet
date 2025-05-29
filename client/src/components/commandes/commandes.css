@@ -1,0 +1,22 @@
+
+
+.commandes-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.commande-liste {
+  list-style: none;
+  padding: 0;
+}
+
+.commande-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+}

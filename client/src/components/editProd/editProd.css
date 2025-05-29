@@ -1,0 +1,35 @@
+
+.btn-edit {
+  background-color:rgb(68, 197, 169) !important;
+  border-color:rgb(68, 197, 169) !important ;
+  color: #212529;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.btn-edit:hover {
+  background-color: rgb(72, 152, 121) !important;
+  color: #fff;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+.modal-footer .btn-primary {
+  background-color: #87c7cc;
+  border: none;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #548892;
+}

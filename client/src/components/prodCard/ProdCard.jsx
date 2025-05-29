@@ -1,59 +1,58 @@
 
-
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteProd } from '../../JS/actions/product.action';
 import { ajouterAuPanier } from '../../JS/actions/panier.action'; 
 import EditProd from '../editProd/EditProd';
+import './prodCard.css';
 
-
-const ProdCard = ({prod, all}) => {
+const ProdCard = ({ prod, all }) => {
   const dispatch = useDispatch();
+
   const handleDelete = () => {
-    if(window.confirm("Etes vous sure de supprimer ce produit?")) {
+    if (window.confirm("Êtes-vous sûr de supprimer ce produit ?")) {
       dispatch(deleteProd(prod._id));
     }
-    
   };
+
   const handleAddToCart = () => {
-    dispatch(ajouterAuPanier(prod._id,1)); 
+    dispatch(ajouterAuPanier(prod._id, 1));
   };
-  
 
   return (
     <div className="carte">
-         <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={prod.image} className="article"/>
-      <Card.Body>
-        <Card.Title>{prod.title}</Card.Title>
-        
-        <Card.Title style={{color:"gray", fontSize:"medium"}}>{prod.price}</Card.Title>
-        <Card.Text >
-          {prod.description}
-        </Card.Text>
-        
-        {all ? (
-          <>
-        <Link to={`/prod/${prod._id}`}>
-        <Button variant="primary">Détails</Button>
-        </Link> 
-        {" "}
-              <Button variant="success" onClick={handleAddToCart}>Ajouter au panier</Button>
-            </>
-      
-      ):(
-          <>
-           
-          <Button variant = "danger" onClick={handleDelete}>supprimer
+      <Card className="prod-card">
+        <Card.Img variant="top" src={prod.image} className="prod-image" />
+       <Card.Body className="d-flex flex-column justify-content-between">
+  <div>
+    <Card.Title className="prod-title">{prod.title}</Card.Title>
+    <Card.Title className="prod-price">{prod.price} TND</Card.Title>
+    <Card.Text className="prod-description">{prod.description}</Card.Text>
+  </div>
+  <div className="card-buttons-row">
+  {all ? (
+    <>
+      <Link to={`/prod/${prod._id}`}>
+        <Button className="btn-details">Détails</Button>
+      </Link> 
+      <Button className="btn-panier" onClick={handleAddToCart}> Ajouter </Button>
+    </>
+  ) : (
+    <>
+      <Button className="btn-supprimer " onClick={handleDelete}>
+  Supprimer
+</Button>
 
-          </Button>
-          <EditProd product={prod} />
-         </>
-        )}
-      </Card.Body>
-    </Card>
+      <EditProd product={prod} />
+    </>
+  )}
+</div>
+
+</Card.Body>
+
+      </Card>
     </div>
   );
 };

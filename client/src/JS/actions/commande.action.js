@@ -17,12 +17,12 @@ export const getCommandes = () => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.get(`/api/commande`, config);
-    dispatch({ type: GET_COMMANDES, payload: res.data });
+    const result = await axios.get(`/api/commande`, config);
+    dispatch({ type: GET_COMMANDES, payload: result.data });
   } catch (error) {
     dispatch({
       type: FAIL_COMMANDE,
-      payload: error.response?.data || error.message,
+      payload: error.response?.data 
     });
   }
 };
@@ -36,8 +36,8 @@ export const creerCommande = (newCommande) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.post(`/api/commande/creer`,newCommande, config);
-    dispatch({ type: CREER_COMMANDE, payload: res.data });
+    const result = await axios.post(`/api/commande/creer`,newCommande, config);
+    dispatch({ type: CREER_COMMANDE, payload: result.data.commande });
     dispatch(getCommandes());
   } catch (error) {
     dispatch({
@@ -56,8 +56,8 @@ export const validerCommande = (id) => async (dispatch) => {
         authorization: localStorage.getItem("token"),
       },
     };
-    const res = await axios.post( `/api/commande/valider/${id}`, config );
-    dispatch({ type: VALIDER_COMMANDE, payload: res.data });
+    const result = await axios.post( `/api/commande/valider/${id}`,{}, config );
+    dispatch({ type: VALIDER_COMMANDE, payload: result.data });
     dispatch(getCommandes());
   } catch (error) {
     dispatch({

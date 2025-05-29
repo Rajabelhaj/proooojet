@@ -8,6 +8,7 @@ exports.creerCommande = async (req, res) => {
   try {
     const  userId = req.user._id;
     const {items, total} = req.body;
+    //console.log("données recues:", {userId, items, total});
   
 
     const nouvelleCommande = await Commande.create({
@@ -57,7 +58,7 @@ exports.commanderDepuisPanier = async (req, res) => {
       if (!produit) {
         return res.status(400).json({ message: `Produit introuvable: ${item.produitId}` });
       }
-      //console.log("Produit:", produit);
+      //console.log( produit);
     
       total += produit.price * item.quantité;  
     }

@@ -1,31 +1,33 @@
+
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCommandes } from '../../JS/actions/commande.action';
+import './commandes.css'; 
 
 const Commandes = () => {
   const dispatch = useDispatch();
 
-  // Accès aux données Redux
-  const { commandes, isLoad } = useSelector((state) => state.commandeReducer);
-  const user = useSelector((state) => state.userReducer.user); 
+  // Récupérer les commandes et le user
+  const isLoad = useSelector((state) => state.commandeReducer.isLoad);
+  const commandes = useSelector((state) => state.commandeReducer.commandes);
+  const user = useSelector((state) => state.userReducer.user);
   const userId = user?._id;
 
-  // Chargement des commandes à l'affichage
+  // Charger les commandes à l'affichage
   useEffect(() => {
-    if (userId) {
-      dispatch(getCommandes(userId));
-    }
-  }, [dispatch, userId]);
+      dispatch(getCommandes());
+    
+  }, [dispatch]);
 
   if (isLoad) return <p>Chargement des commandes...</p>;
-
+//console.log("commandes", commandes);
   return (
-    <div>
+    <div className="commandes-container">
       <h2>Mes Commandes</h2>
       {commandes && commandes.length > 0 ? (
-        <ul>
+        <ul className="commande-liste">
           {commandes.map((cmd) => (
-            <li key={cmd._id}>
+            <li key={cmd._id} className="commande-item">
               <h4>Commande du {new Date(cmd.createdAt).toLocaleDateString()}</h4>
               <p>Status : <strong>{cmd.statut}</strong></p>
               <ul>

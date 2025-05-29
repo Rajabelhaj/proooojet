@@ -1,25 +1,16 @@
-
-import React from 'react'
+import React from 'react';
 import ProdCard from '../prodCard/ProdCard';
-//import { useSelector } from 'react-redux';
+import './listProd.css';
 
-const ListeProd = ({products, all}) => {
-   // const products = useSelector(state => state.productReducer.products);
-    //console.log(products)
-    //console.log(all);
+const ListeProd = ({ products, all }) => {
   return (
-    <div 
-    style={{
-      display:"flex", 
-      justifyContent:"space-around",
-      flexWrap:"wrap"}}
-       >
+    <div className="liste-produits">
       {products?.map((prod) => (
-  <ProdCard key={prod._id} prod={prod} all={all} />
-))}
-     
+        <ProdCard key={prod._id} prod={prod} all={all} />
+      ))}
     </div>
   );
 };
 
 export default ListeProd;
+

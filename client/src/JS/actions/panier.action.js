@@ -38,6 +38,7 @@ export const ajouterAuPanier = ( produitId, quantité) => async (dispatch) => {
    const result = await axios.post(`/api/panier/ajouter/${produitId}`,{quantité}, config);
    //console.log(result);
 
+
     dispatch({ type: AJOUTER_AU_PANIER, payload: result.data });
     dispatch(getPanier());
   } catch (error) {
@@ -55,10 +56,11 @@ export const supprimerDuPanier = (id, produitId) => async (dispatch) => {
       },
     };
    const result =  await axios.delete(`/api/panier/supprimer/${id}/${produitId}`, config);
-    dispatch({ type: SUPPRIMER_PRODUIT_PANIER, payload: result.data });
+    dispatch({ type: SUPPRIMER_PRODUIT_PANIER, payload: result.data});
+    console.log(result)
     dispatch(getPanier());
   } catch (error) {
-    dispatch({ type: FAIL_PANIER, payload: error.response.data });
+    dispatch({ type: FAIL_PANIER, payload: error.response?.data });
   }
 };
 
@@ -66,10 +68,15 @@ export const supprimerDuPanier = (id, produitId) => async (dispatch) => {
 export const viderPanier = (id) => async (dispatch) => {
   dispatch({ type: LOAD_PANIER });
   try {
-    await axios.delete(`/api/panier/vider/${id}`);
-    dispatch({ type: VIDER_PANIER });
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    };
+    const result = await axios.delete(`/api/panier/vider/${id}`, config);
+    dispatch({ type: VIDER_PANIER, payload: result.data});
     dispatch(getPanier());
   } catch (error) {
-    dispatch({ type: FAIL_PANIER, payload: error.response.data });
+    dispatch({ type: FAIL_PANIER, payload: error.response?.data });
   }
 };

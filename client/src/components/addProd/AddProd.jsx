@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {Form, Button, Modal} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
 import { addProd } from '../../JS/actions/product.action';
+import './addProd.css';
 
 function AddProd() {
     const dispatch = useDispatch();
@@ -29,9 +30,10 @@ const handleAddProd = (e) => {
 };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Ajouter un produit
-      </Button>
+      <Button className="btn-ajout-produit" onClick={handleShow}>
+  Ajouter un produit
+</Button>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -76,12 +78,14 @@ const handleAddProd = (e) => {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Fermer
-          </Button>
-          <Button variant="primary" onClick={handleAddProd}>
-            Soumettre
-          </Button>
+          <Button className="btn-fermer" onClick={handleClose}>
+  Fermer
+</Button>
+<Button className="btn-soumettre" onClick={handleAddProd}>
+  Soumettre
+</Button>
+
+          
         </Modal.Footer>
       </Modal>
     </>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import AddProd from '../../components/addProd/AddProd';
 import { getMyProd } from '../../JS/actions/product.action';
 import ListeProd from '../../components/listProd/ListeProd';
+import './profile.css'; 
 
 
 const Profile = () => {
@@ -17,11 +18,11 @@ const Profile = () => {
 
   return (
     <div>
-        <div style= {{display:"flex", justifyContent:"center", gap:"20px"}}>
+        <div className="profile-header">
           <h1>Hello {user.name}</h1>
-        <img src="https://images.unsplash.com/photo-1569323110213-944f724b1a45?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-        alt="profile" width={60} />
-        
+        <img src="https://images.unsplash.com/photo-1695931854534-f22c02611ba1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+      
+        />
         </div>
         <hr/>
         <AddProd/>

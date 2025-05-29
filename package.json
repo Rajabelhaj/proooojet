@@ -4,7 +4,7 @@
   "description": "Projet de fin d'étude",
   "main": "server",
   "scripts": {
-    "back":"nodemon server",
+    "back": "nodemon server",
     "front": "cd client && npm start",
     "dev": "concurrently \"npm run back\" \"npm run front\""
   },
@@ -16,7 +16,8 @@
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.14.1"
+    "mongoose": "^8.14.1",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "dotenv": "^16.5.0",

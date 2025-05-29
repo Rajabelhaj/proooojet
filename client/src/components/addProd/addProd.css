@@ -1,0 +1,44 @@
+
+
+.btn-ajout-produit {
+  background-color: #80e1d9 !important;
+  border-color:#80e1d9 !important ;
+  border: none;
+  color: rgb(34, 26, 26);
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ajout-produit:hover {
+  background-color: #6ea5a3 !important;
+  border-color: #6ea5a3 !important;
+}
+.btn-fermer {
+  background-color: rgb(235, 163, 112)!important; 
+  border: none;
+  color: rgb(1, 1, 1);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-fermer:hover {
+  background-color: #dc590e !important;
+}
+
+.btn-soumettre {
+  background-color: rgb(115, 198, 147) !important; 
+  border: none;
+  color: rgb(24, 24, 24);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-soumettre:hover {
+  background-color: #579579 !important;
+}

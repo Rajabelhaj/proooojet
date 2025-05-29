@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
 import { editProd } from '../../JS/actions/product.action';
+import './editProd.css';
 
 
 function EditProd({product}) {
@@ -31,9 +32,9 @@ function EditProd({product}) {
  };
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
-        Editer
-      </Button>
+      <Button className="btn-edit" onClick={handleShow}>
+   Modifier
+</Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

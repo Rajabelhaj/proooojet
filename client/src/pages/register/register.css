@@ -1,0 +1,32 @@
+/* src/components/Register/register.css */
+
+.register-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #06080b;
+}
+
+.register-link {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.btn-teal {
+  background-color: rgb(117, 189, 189) !important;
+  border-color: rgb(122, 153, 153) !important;
+  color: white;
+}
+
+.btn-teal:hover {
+  background-color: #006666 !important;
+  border-color: #006666 !important;
+}

@@ -19,7 +19,7 @@ const commandeReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoad: true };
 
     case GET_COMMANDES:
-      return { ...state, isLoad: false, commandes: payload };
+      return { ...state, isLoad: false, commandes: payload, errors:[] };
 
     case CREER_COMMANDE:
       return {

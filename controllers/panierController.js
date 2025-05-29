@@ -72,7 +72,7 @@ exports.viderPanier = async (req, res) => {
 exports.supprimerProduitDuPanier = async (req, res) => {
   try {
     const userId= req.user._id;
-    const produitId = req.params;
+    const produitId = req.params.produitId;
 
     const panier = await Panier.findOne({ userId });
     if (!panier) return res.status(404).json({ message: "Panier non trouvé" });
