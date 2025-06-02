@@ -81,6 +81,7 @@
   border-color:#229799 !important ; 
   color: white !important;
   border: none;
+  margin: 5px;
   
 }
 
@@ -102,7 +103,7 @@
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.3s ease;
-  margin-left: 10px;
+  margin: 5px;
 }
 
 .btn-supprimer:hover {

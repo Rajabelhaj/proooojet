@@ -1,0 +1,18 @@
+
+
+.btn-detail {
+  background-color: #2fc8e0 !important;
+  border-color: #17a2b8 !important;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.btn-detail:hover {
+  background-color: #138496;
+  border-color: #138496;
+}

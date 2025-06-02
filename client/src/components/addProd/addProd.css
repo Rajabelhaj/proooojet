@@ -42,3 +42,7 @@
 .btn-soumettre:hover {
   background-color: #579579 !important;
 }
+select.form-select {
+  z-index: 1051 !important;
+  position: relative;
+}

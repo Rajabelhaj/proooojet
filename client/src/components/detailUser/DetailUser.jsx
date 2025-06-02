@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import './detailUser.css';
 
 const DetailUser = ({user}) => {
     //console.log(user);
@@ -10,9 +11,9 @@ const DetailUser = ({user}) => {
   return (
     <div>
         {" "}
-        <Button variant="info" onClick={handleShow}>
-        Détails
-      </Button>
+       <Button className="btn-detail" onClick={handleShow}>
+  Détails
+</Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

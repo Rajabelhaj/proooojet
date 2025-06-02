@@ -1,10 +1,11 @@
 
 import {
   LOAD_COMMANDE,
-  GET_COMMANDES,
+  GET_ALLCOMMANDES,
   FAIL_COMMANDE,
   CREER_COMMANDE,
   VALIDER_COMMANDE,
+  GET_MYCOMMANDE,
 } from "../actionType/commande.actionType";
 
 const initialState = {
@@ -18,8 +19,12 @@ const commandeReducer = (state = initialState, { type, payload }) => {
     case LOAD_COMMANDE:
       return { ...state, isLoad: true };
 
-    case GET_COMMANDES:
+    case GET_ALLCOMMANDES:
       return { ...state, isLoad: false, commandes: payload, errors:[] };
+
+    case GET_MYCOMMANDE:
+      return {...state, isLoad: false, commandes:payload.macommandeList}
+      
 
     case CREER_COMMANDE:
       return {

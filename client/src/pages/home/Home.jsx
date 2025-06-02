@@ -1,17 +1,37 @@
-import React, { useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getAllProd} from '../../JS/actions/product.action';
+
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProd } from '../../JS/actions/product.action';
 import ListeProd from '../../components/listProd/ListeProd';
 import './home.css';
+import { useParams } from 'react-router-dom';
+
 
 const Home = () => {
-  const products = useSelector(state => state.productReducer.products)
+  const { cat } = useParams();
   const dispatch = useDispatch();
+  const products = useSelector(state => state.productReducer.products);
+  const produitsRef = useRef(null); // Pour scroll vers produits
+
+  // Récupération des produits au chargement
   useEffect(() => {
     dispatch(getAllProd());
   }, [dispatch]);
+
+  // Filtrage local des produits selon la catégorie
+  const filteredProducts = cat
+    ? products.filter(prod => prod.categorie.toLowerCase() === cat.toLowerCase())
+    : products;
+
+  // Scroll vers la section produits si une catégorie est sélectionnée
+  useEffect(() => {
+    if (cat && produitsRef.current) {
+      produitsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [cat]);
+
   return (
-     <div>
+    <div>
       {/* Hero section */}
       <div className="hero-container">
         <img
@@ -26,24 +46,14 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Produits */}
-      <div id="produits" className="product-section">
-        <h2>Nos Produits</h2>
-        <ListeProd products={products} all={true} />
+      {/* Section Produits */}
+      <div id="produits" className="product-section" ref={produitsRef}>
+        <h2>{cat ? `Produits de la catégorie "${cat}"` : 'Nos Produits'}</h2>
+        <ListeProd products={filteredProducts} all={true} />
       </div>
+      
     </div>
   );
 };
 
 export default Home;
-
-
-
-
-
-
-
-
-
-
-      

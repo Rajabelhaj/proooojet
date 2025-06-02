@@ -18,6 +18,8 @@ router.get("/all", isAdmin,  getAllUsers);
 //route pour supprimer un user
 
 router.delete('/:id', isAdmin, deleteUser);
+
+
 //route pour avoir un utilisateur
 router.get('/:id', isAdmin, getOne);
 

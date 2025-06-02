@@ -3,6 +3,8 @@ import {Button, Card} from "react-bootstrap";
 import './userCard.css'
 import DetailUser from '../detailUser/DetailUser';
 import ToSupp from '../toSuupp/ToSupp';
+import './userCard.css';
+
 
 
 const UserCard = ({user}) => {

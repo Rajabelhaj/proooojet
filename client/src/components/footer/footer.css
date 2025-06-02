@@ -1,0 +1,22 @@
+
+.footer-container {
+  background-color: #49af9c;
+  color: #121111;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+@media screen and (max-width: 768px) {
+  .footer-container p {
+    font-size: 14px;
+  }
+}
+

@@ -27,7 +27,7 @@ const Panier = () => {
 
   const handleValiderCommande = () => {
     if (window.confirm("Voulez-vous valider la commande ?")) {
-      dispatch(creerCommande(userId));
+      dispatch(creerCommande());
     }
   };
 
@@ -61,6 +61,7 @@ const Panier = () => {
                 <div className="panier-info">
                   <h5>{item.produitId?.title}</h5>
                   <p>Quantité : {item.quantité}</p>
+                  
                 </div>
                 <Button
                   variant="outline-danger"

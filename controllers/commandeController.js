@@ -25,17 +25,35 @@ exports.creerCommande = async (req, res) => {
   }
 };
 
-// Récupérer toutes les commandes d’un utilisateur
-exports.getCommandes = async (req, res) => {
+
+
+// Récupérer toutes les commandes d’un utilisateur (admin seulement)
+exports.getAllCommandes = async (req, res) => {
   try {
-    const  userId  = req.user._id;
-    const commandes = await Commande.find({ userId });
+    //const  userId  = req.user._id;
+    const commandes = await Commande.find();
     res.status(200).json(commandes);
   } catch (err) {
     //console.error(err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+//voir ma propre commandes
+exports.getMyCommande = async (req, res) => {
+    try {
+        const macommandeList = await Commande.find({userId: req.user._id});
+        if(!macommandeList || macommandeList.length === 0) return (
+          res.status(400).json({msg: "vous n'avez pas de commande"})
+        )
+
+        res.status(200).json({msg:"la liste des produits commandés:", macommandeList});
+        
+    } catch (error) {
+        res.status(400).json({msg: "Impossible de trouver la commande", error}); 
+    }
+};
+
 
 // Créer une commande à partir du panier (validation du commande)
 exports.commanderDepuisPanier = async (req, res) => {

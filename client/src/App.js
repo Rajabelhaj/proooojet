@@ -19,6 +19,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Panier from './components/panier/Panier';
 
 import Commandes from './components/commandes/Commandes';
+import Footer from './components/footer/Footer';
 
 
 
@@ -43,6 +44,8 @@ const user = useSelector(state => state.authReducer.user);
       dispatch(current());
     }
   }, [dispatch]);
+  
+
   return (
     <div className="App">
    
@@ -52,31 +55,39 @@ const user = useSelector(state => state.authReducer.user);
       {Array.isArray(errors) && errors.length !== 0 && <ErrorToast errors={errors}/>}
       {/*routes*/}
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/prod/:id' element={<DetailProduct/>}/>
+  <Route path='/' element={<Home />} />
+  <Route path='/prod/:id' element={<DetailProduct />} />
+  
+  {/* Route pour afficher les produits d'une catégorie */}
+  <Route path='/categorie/:cat' element={<Home />} />
+<Route path="/home/:cat" element={<Home />} />
+<Route path="/home" element={<Home />} />
 
-    {/*route securisée pour admin */}
-        {user.isAdmin && (
-        <Route path='/admin' element={<PrivateRoute isAdmin={user.isAdmin}/>}>
-        <Route path="/admin" element={<DashBoard/>}/> 
-        </Route>
-        )}
-        {isAuth ? (
-          <>
-         <Route path='/profile' element={<Profile/>}/>
-         {/*  Routes panier et commandes  */}
-            <Route path="/panier" element={<Panier userId={user._id} />} />
-            <Route path="/commande" element={<Commandes userId={user._id} />} /> 
-         </>
-        ) : (
-         <>
-         <Route path="/profile" element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/></> )}
-       
-        <Route path='/*' element={<Error/>}/>
-      </Routes>
+  {user.isAdmin && (
+    <Route path='/admin' element={<PrivateRoute isAdmin={user.isAdmin} />}>
+      <Route path='/admin' element={<DashBoard />} />
+    </Route>
+  )}
+
+  {isAuth ? (
+    <>
+      <Route path='/profile' element={<Profile />} />
+      <Route path='/panier' element={<Panier userId={user._id} />} />
+      <Route path='/commande' element={<Commandes userId={user._id} />} />
+    </>
+  ) : (
+    <>
+      <Route path='/profile' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/login' element={<Login />} />
+    </>
+  )}
+
+  <Route path='/*' element={<Error />} />
+</Routes>
+
       {/*footer*/}
+      <Footer/>
     </div>
   );
 }

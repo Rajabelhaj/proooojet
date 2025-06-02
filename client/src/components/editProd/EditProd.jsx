@@ -65,6 +65,12 @@ function EditProd({product}) {
 </Form.Group>
  <Form.Group  className="mb-3" >
         
+        <Form.Control type="text" placeholder="categorie" name="categorie" 
+        value={prodToEdit.categorie}
+        onChange={handleChange}/>
+</Form.Group>
+ <Form.Group  className="mb-3" >
+        
         <Form.Control type="number" placeholder="Prix" name="price" 
         value={prodToEdit.price}
         onChange={handleChange} />
