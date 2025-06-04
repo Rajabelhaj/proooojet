@@ -2,47 +2,60 @@
 const Commande = require("../models/Commande");
 const Panier = require("../models/Panier");
 const Product = require("../models/Products");
+const User = require("../models/User");
 
 // Créer une commande 
-exports.creerCommande = async (req, res) => {
-  try {
-    const  userId = req.user._id;
-    const {items, total} = req.body;
+//exports.creerCommande = async (req, res) => {
+ // try {
+   // const  userId = req.user._id;
+   //const {items, total} = req.body;
     //console.log("données recues:", {userId, items, total});
   
 
-    const nouvelleCommande = await Commande.create({
-      userId,
-      items,
-      total,
-      dateCommande: new Date(),
-    });
+    //const nouvelleCommande = await Commande.create({
+     // userId,
+     // items,
+     // total,
+      //dateCommande: new Date(),
+    //});
 
-    res.status(201).json({ message: "Commande créée", commande: nouvelleCommande });
-  } catch (err) {
+  // res.status(201).json({ message: "Commande créée", commande: nouvelleCommande });
+  //} catch (err) {
     //console.error(err);
-    res.status(500).json({ message: "Erreur serveur" });
-  }
-};
+   // res.status(500).json({ message: "Erreur serveur" });
+ // }
+//};
 
 
 
-// Récupérer toutes les commandes d’un utilisateur (admin seulement)
+// Récupérer toutes les commandes des utilisateurs (admin seulement)
 exports.getAllCommandes = async (req, res) => {
   try {
-    //const  userId  = req.user._id;
-    const commandes = await Commande.find();
+    const commandes = await Commande.find()
+      .populate({
+        path: "userId",
+        select: "name",
+        options: { strictPopulate: false },
+      })
+      .populate({
+        path: "items.produitId", 
+        select: "title price",
+        options: { strictPopulate: false },
+      });
+
     res.status(200).json(commandes);
   } catch (err) {
-    //console.error(err);
+    console.error(err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+
 
 //voir ma propre commandes
 exports.getMyCommande = async (req, res) => {
     try {
-        const macommandeList = await Commande.find({userId: req.user._id});
+        const macommandeList = await Commande.find({userId: req.user._id}).populate("items.produitId", null, "product");
         if(!macommandeList || macommandeList.length === 0) return (
           res.status(400).json({msg: "vous n'avez pas de commande"})
         )
@@ -104,3 +117,39 @@ exports.commanderDepuisPanier = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la validation du panier", error: err.message });
   }
 };
+
+//confirmation de la commande
+exports.confirmerCommande = async (req, res) => {
+  try {
+    const commande = await Commande.findById(req.params.id);
+    if (!commande) return res.status(404).send("Commande non trouvée");
+
+    commande.isConfirmed = true;
+    await commande.save();
+
+    res.send({ message: "Commande confirmée avec succès", commande });
+  } catch (error) {
+    res.status(500).send("Erreur lors de la confirmation de commande");
+  }
+};
+
+
+// Supprimer une commande
+exports.supprimerCommande = async (req, res) => {
+  try {
+    const commande = await Commande.findById(req.params.id);
+
+    if (!commande) {
+      return res.status(404).json({ msg: "Commande introuvable" });
+    }
+
+    
+
+    await Commande.findByIdAndDelete(req.params.id);
+    res.status(200).json({ msg: "Commande supprimée avec succès" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Erreur serveur" });
+  }
+};
+

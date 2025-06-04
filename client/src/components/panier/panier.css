@@ -1,52 +1,112 @@
 
 .panier-container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 900px;
+  margin: 3rem auto;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
+.panier-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #333;
+  font-weight: bold;
+}
+
 
 .panier-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .panier-item {
   display: flex;
   align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
 }
 
+.panier-item:hover {
+  transform: scale(1.01);
+}
+
+
 .panier-img {
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 10px;
+  margin-right: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 
 .panier-info {
   flex: 1;
 }
 
-.btn-supprimer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
+.panier-info h5 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #222;
 }
+
+.panier-info p {
+  margin: 0.3rem 0 0;
+  color: #666;
+}
+
+
+.btn-supprimer {
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.4rem 0.7rem;
+  background-color: #f8f9fa !important;
+}
+
 
 .panier-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.btn-panier {
+
+.btn-panier-custom {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
+  font-weight: 500;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.btn-panier-custom svg {
+  margin-right: 8px;
+}
+
+.btn-panier-custom:hover {
+  transform: translateY(-2px);
+}
+
+
+.panier-container p {
+  text-align: center;
   font-size: 1.1rem;
+  color: #777;
 }

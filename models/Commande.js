@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 const commandeSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
     required: true,
   },
   items: [
     {
       produitId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        ref: "product",
         required: true,
       },
       quantité: {
@@ -28,10 +28,15 @@ const commandeSchema = new mongoose.Schema({
     type: String,
     default: "en attente",
   },
+  isConfirmed: {
+  type: Boolean,
+  default: false
+},
   dateCommande: {
     type: Date,
     default: Date.now,
   },
+  
 });
 
 const Commande = mongoose.model("Commande", commandeSchema);

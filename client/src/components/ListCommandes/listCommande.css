@@ -1,0 +1,100 @@
+
+.commandes-list {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.commandes-list h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.commandes-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.commande-item {
+  background-color: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  border-left: 5px solid #c3d1e0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.commande-item:hover {
+  transform: scale(1.01);
+}
+
+.commandes-list p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.commandes-list strong {
+  color: #000;
+}
+
+.btn-supprimer {
+  background-color: #62383b !important;
+  color: rgb(12, 12, 12);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-supprimer:hover {
+  background-color: #edd3d6 !important;
+}
+
+
+.produits-commandes {
+  margin-top: 1rem;
+}
+
+.produits-commandes p {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.produits-commandes ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.produit-item {
+  display: flex;
+  align-items: center;
+  background-color: #80bcc0;
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+
+.produit-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.produit-item span {
+  font-size: 0.95rem;
+  color: #444;
+}

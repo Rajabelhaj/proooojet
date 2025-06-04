@@ -2,18 +2,20 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   getPanier,
   supprimerDuPanier,
   viderPanier,
 } from '../../JS/actions/panier.action';
-import { creerCommande } from '../../JS/actions/commande.action';
+import { validerCommande} from '../../JS/actions/commande.action';
 import { Button } from 'react-bootstrap';
 import { FaTrash, FaCheck } from 'react-icons/fa';
 import './panier.css'; 
 
 const Panier = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isLoad = useSelector((state) => state.panierReducer.isLoad);
   const panier = useSelector((state) => state.panierReducer.panier);
@@ -25,10 +27,10 @@ const Panier = () => {
     dispatch(getPanier());
   }, [dispatch]);
 
-  const handleValiderCommande = () => {
-    if (window.confirm("Voulez-vous valider la commande ?")) {
-      dispatch(creerCommande());
-    }
+  const handleValiderCommande = async () => {
+    await dispatch(validerCommande());
+    navigate('/commande');
+    
   };
 
   const handlevide = () => {
@@ -76,24 +78,25 @@ const Panier = () => {
           </ul>
 
           <div className="panier-actions">
-            <Button
-              variant="outline-danger"
-              onClick={handlevide}
-              title="Vider le panier"
-              className="btn-panier"
-            >
-              <FaTrash />
-            </Button>
+  <Button
+    variant="danger"
+    onClick={handlevide}
+    className="btn-panier-custom"
+  >
+    <FaTrash style={{ marginRight: '8px' }} />
+    Vider le panier
+  </Button>
 
-            <Button
-              variant="outline-success"
-              onClick={handleValiderCommande}
-              title="Valider la commande"
-              className="btn-panier"
-            >
-              <FaCheck />
-            </Button>
-          </div>
+  <Button
+    variant="success"
+    onClick={handleValiderCommande}
+    className="btn-panier-custom"
+  >
+    <FaCheck style={{ marginRight: '8px' }} />
+    Valider la commande
+  </Button>
+</div>
+
         </div>
       ) : (
         <p>Votre panier est vide</p>

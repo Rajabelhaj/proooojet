@@ -1,22 +1,90 @@
 
-
 .commandes-container {
   max-width: 800px;
-  margin: 20px auto;
-  padding: 16px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  margin: auto;
+  padding: 20px;
 }
 
 .commande-liste {
   list-style: none;
   padding: 0;
+  
 }
 
 .commande-item {
-  border: 1px solid #ddd;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.commande-items {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.commande-produit {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.commande-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background-color: #fff;
+  margin-right: 15px;
+}
+
+.commande-details p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.total-global {
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+.commande-message {
+  background-color: #e0ffe0;
+  color: #056105;
+  padding: 10px 15px;
+  border: 1px solid #a4d7a4;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.commande-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.btn-confirmer{
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  background-color: #a4d7a4 !important;
+}
+.btn-supprimer {
+  padding: 10px 20px;
+  font-weight: bold !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  background-color: #a4d7a4 !important;
 }
